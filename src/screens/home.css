@@ -1,0 +1,65 @@
+.card {
+     
+      width: 30rem;
+      overflow: hidden;
+      margin: 2rem auto;
+      border: 5px solid darkblue;
+}
+
+.card-username__info{
+      margin-top: .4rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0  .5rem;
+}
+
+.card-username__info div{
+      height: 55px;
+      width: 55px;
+      border-radius: 50%;
+      overflow: hidden;
+} 
+
+.card-username__info div img{
+      height: inherit;
+      width: inherit;
+      object-fit: cover;
+}
+
+.card-image__post{
+      height: 250px;
+      width: 30rem;
+      overflow: hidden;
+}
+
+.card-image__post img{
+      width: 30rem;
+      object-fit: cover;
+      height: inherit;
+}
+
+.card-reaction{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+.card-reaction span {
+      padding: 0 2rem;
+}
+
+.card-reaction span i {
+      cursor: pointer;
+}
+
+.card-comment{
+      margin: 1rem 0;
+      height: 50px;
+}
+
+.card-comment input {
+      width: 100%;
+      height: 45px;
+
+}

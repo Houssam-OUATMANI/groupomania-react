@@ -1,0 +1,19 @@
+.login-form{
+      width: 50%;
+      margin:10rem auto;
+}
+
+.form-group{
+text-align: center;
+}
+
+.form-group label ,input {
+      width: 95%;
+      display: block;
+      
+}
+button {
+
+      display: block;
+      margin:2rem auto;
+}

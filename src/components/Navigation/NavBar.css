@@ -1,0 +1,43 @@
+/* 
+    navbar__container ==> Div Parent bar de navigation
+    logo => class logo Groupomania
+*/
+
+
+.navbar__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #9933CC;
+    height: 55px;
+    padding: 0 1rem;
+}
+
+.logo {
+   font-size: 1.3rem;
+}
+
+.navigation {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.navigation ul {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.navigation ul li a {
+    font-size: .7rem;
+}
+
+
+.logout-btn{
+    display: inline;
+    margin: 0;
+    background-color: chartreuse;
+    border: none;
+    padding: 1rem 0;
+}
