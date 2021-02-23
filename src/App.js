@@ -11,6 +11,7 @@ import AddPost from './screens/AddPost';
 
 import { AuthContext } from './context/auth.context'
 import Profile from './screens/Profile';
+import MyPost from './screens/MyPost';
 
 function App() {
 
@@ -37,6 +38,9 @@ if(loggedIn){
          </Route>
          <Route path='/profile' exact>
             <Profile/>
+         </Route>
+         <Route path='/posts' exact>
+            <MyPost/>
          </Route>
          <Redirect to ='/'/>
       </Switch>

@@ -26,8 +26,8 @@ export default function Signup(){
                     alert(response.message.errors[0].message)
                     throw new Error(response)
               }else{
-                  alert(response.message)
-                  auth.Login()
+                  alert(`${response.message} \nVeuillez vous Connecter`)
+                 // auth.Login()
             }
      
            }catch(err){

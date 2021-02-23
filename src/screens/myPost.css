@@ -1,0 +1,19 @@
+ button {
+       cursor: pointer;
+ }
+
+ .btn-delete {
+       background-color: crimson;
+       color: white;
+       border: none;
+       padding: .7rem 2rem;
+       border-radius: 5px;
+ }
+
+ .btn-update {
+       background-color:  cyan;
+       color: white;
+       border: none;
+       padding: .7rem 2rem;
+       border-radius: 5px;
+ }

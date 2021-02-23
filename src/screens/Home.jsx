@@ -47,6 +47,13 @@ useEffect(()=>{
                                           </div>
                                           <h2> {obj.name}</h2>
                                     </div>
+                                    <div className="detail">
+                                          <hr/>
+                                          <br/>
+                                          <h3>{obj.detail}</h3>
+                                          <br/>
+                                          <hr/>
+                                    </div>
             
                                     <div className="card-image__post">
                                           <img src={obj.imageUrl} alt=""/>
