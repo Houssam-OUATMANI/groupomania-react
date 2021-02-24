@@ -17,6 +17,12 @@
    font-size: 1.3rem;
 }
 
+.logo span{
+    color: #45cc33;
+    font-family: 'Big Shoulders Stencil Text';
+    font-size: 1.3rem;
+}
+
 .navigation {
     width: 70%;
     display: flex;
@@ -40,4 +46,19 @@
     background-color: chartreuse;
     border: none;
     padding: 1rem 0;
+}
+.fa-sign-out-alt{
+    color: #1B1E3D;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px){
+  
+  .logo , .logo span {
+      font-size: .8rem;
+  }
+
+  .navigation {
+      width: 85%;
+  }
 }

@@ -13,7 +13,7 @@ export default function NavBar(){
     
     return(
         <div className='navbar__container'>
-            <h1 className ="logo">GROUPOMANIA</h1>
+            <h1 className ="logo">GROUPO<span>MANIA</span></h1>
             <nav className='navigation'>
                 <ul>
                     {!auth.loggedIn && (
@@ -31,11 +31,12 @@ export default function NavBar(){
                       { auth.loggedIn && (
                         <li><NavLink to='/posts'>Mes Posts</NavLink></li>
                     )}
-                    { auth.Login && (
+                    { auth.loggedIn && (
                         <li><NavLink to='/profile'>Profile</NavLink></li>
                     )}
                     {auth.loggedIn && (
-                        <button className='logout-btn' onClick={auth.Logout }>Deconnexion</button>
+                        //<button className='logout-btn' onClick={auth.Logout }>Deconnexion</button>
+                        <i className="fas fa-sign-out-alt" onClick={auth.Logout}></i>
                     )}
                 </ul>
             </nav>

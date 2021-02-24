@@ -46,7 +46,7 @@ export default function Signup(){
                               <input type="email" placeholder="email..." name="email" ref={register({required :true}) }/>
                         </div>
                         <div className="form-group">
-                              <label htmlFor="password">Psssword</label>
+                              <label htmlFor="password">Password</label>
                               <input type="password" placeholder="password ... " name="password" ref={register({required :true})}/>
                         </div>
                         <button type="submit">Inscription</button>

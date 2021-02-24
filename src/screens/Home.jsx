@@ -60,8 +60,8 @@ useEffect(()=>{
                                     </div>
             
                                     <div className="card-reaction">
-                                          <span><i class="fas fa-thumbs-up"></i>{obj.likes}</span>
-                                          <span><i class="fas fa-thumbs-down"></i>{obj.dislikes}</span>
+                                          <span><i class="fas fa-thumbs-up"></i> {obj.likes}</span>
+                                          <span><i class="fas fa-thumbs-down"></i> {obj.dislikes}</span>
                                     </div>
             
                                     <div className="card-comment">
