@@ -1,4 +1,4 @@
-import  React  from 'react';
+import  React, {useEffect, useState}  from 'react';
 import { useForm } from 'react-hook-form'
 
 import './addPost.css'
@@ -11,21 +11,51 @@ export default function AddPost(){
        const { handleSubmit , register , errors } = useForm()
 
        async function sendPost(data){
-              const data2 = {...data , imageUrl : 'azeazeazezae.com', userId : userCredentials.userId}
+
+            const formData = new FormData()
+            formData.append('title', data.title)
+            formData.append('detail', data.detail)
+            formData.append('image', data.image[0])
+              //const data2 = {...data , imageUrl : 'azeazeazezae.com', userId : userCredentials.userId}
               
               const URL = "http://127.0.0.1:5000/api/posts/add-post"
 
               const sendedData  = await fetch(URL, {
                      method : 'post',
-                     headers : {
-                            'Content-Type' : 'application/json'
-                     },
-                     body : JSON.stringify(data2)
+                     body : formData
               })
 
               const response = await sendedData.json()
               console.log(response)
+              
        }
+
+       const [image, setImage] = useState()
+       const [previewUrl, setPreviewUrl] = useState()
+
+       function imageHandler(e){
+        if(e.target.files){
+             const pickedImage = e.target.files[0]
+             setImage(pickedImage)
+             console.log("PREVIEW", pickedImage )
+        }
+        else{
+              return
+        }
+       }
+
+       useEffect(()=>{
+              if(image){
+                           const imageReader = new FileReader()
+                           imageReader.onload = ()=>{
+                                 setPreviewUrl(imageReader.result)
+                           }
+                           imageReader.readAsDataURL(image)
+              }else{
+                    return
+              }
+        },[image])
+
 
       return (
             <form className="add-form"  onSubmit={handleSubmit(sendPost)}>
@@ -39,7 +69,13 @@ export default function AddPost(){
                  </div>
                  <div className="form-group">
                         <label htmlFor="image">Upload image</label>
-                        <input type="file"  id="image"  accept="image/png, image/jpeg, image/jpg"/>
+                        <input type="file"  id="image" name="image" accept=".png, .jpeg, .jpg, .gif" onChange={imageHandler} ref={register({required :true})}/>
+                        { previewUrl &&
+                                    <div className="image-preview">
+                                          <img src={previewUrl} alt=""/>
+                                    </div>
+                        }
+                       {errors.image && <code>Image Obligatoire</code>}
                  </div>
                  <button type="submit">Post</button>
             </form>

@@ -8,8 +8,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #9933CC;
-    height: 55px;
+    background-color: gold;
+    height: 75px;
     padding: 0 1rem;
 }
 
@@ -36,7 +36,20 @@
 }
 
 .navigation ul li a {
-    font-size: .7rem;
+    font-size: 1.2rem;
+    color: #1B1E3D;
+    font-weight: bold;
+}
+
+.navigation ul li{
+    transition: .3s;
+}
+.navigation ul li:hover{
+    transform: scale(1.20);
+}
+
+.navigation ul li a:hover{
+    color: #1d11ca;
 }
 
 
@@ -50,6 +63,7 @@
 .fa-sign-out-alt{
     color: #1B1E3D;
     cursor: pointer;
+    margin-top: .2rem;
 }
 
 @media screen and (max-width: 600px){
@@ -58,6 +72,9 @@
       font-size: .8rem;
   }
 
+  .navigation ul li a{
+      font-size: .75rem;
+  }
   .navigation {
       width: 85%;
   }

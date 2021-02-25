@@ -36,7 +36,7 @@ export default function NavBar(){
                     )}
                     {auth.loggedIn && (
                         //<button className='logout-btn' onClick={auth.Logout }>Deconnexion</button>
-                        <i className="fas fa-sign-out-alt" onClick={auth.Logout}></i>
+                        <i className="fas fa-sign-out-alt fa-lg" onClick={auth.Logout}></i>
                     )}
                 </ul>
             </nav>

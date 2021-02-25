@@ -1,0 +1,26 @@
+
+.profile-title {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 3rem;
+      color: antiquewhite;
+      text-decoration: underline;
+}
+
+.user-info {
+      padding: 0 1rem;
+}
+
+.user-info p {
+      color: antiquewhite;
+}
+
+.profile-image-div {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
+.profile-image-div img {
+      width: 100%;
+}

@@ -29,7 +29,6 @@ export default function Login(){
                        alert(response.message)
                        throw new Error(response)
                  }else{
-                       alert(response.message)
                        auth.Login()
                  }
                  return response

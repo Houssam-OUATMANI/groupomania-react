@@ -19,8 +19,19 @@ export default function MyPost(){
             }
             getMyPosts()
       },[])
-
+      
       console.log(data)
+
+      // Update POST
+      function handleUpdatePost(e){
+          
+      }
+      // DELETE POST
+
+      function handleDeletePost(e){
+            e.target.parentElement.remove()
+      }
+
       if(data){
             if(data.length < 1){
                   return(
@@ -51,13 +62,13 @@ export default function MyPost(){
                               </div>
       
                               <div className="card-reaction">
-                                    <span><i class="fas fa-thumbs-up"></i>{obj.likes}</span>
-                                    <span><i class="fas fa-thumbs-down"></i>{obj.dislikes}</span>
+                                    <span><i class="fas fa-thumbs-up"></i> {obj.likes}</span>
+                                    <span><i class="fas fa-thumbs-down"></i> {obj.dislikes}</span>
                               </div>
       
                               <div className="card-edit">
-                                   <button className="btn-update">UPDATE</button>
-                                   <button className="btn-delete">DELETE</button>
+                                   <button className="btn-update" onClick={handleUpdatePost}>UPDATE</button>
+                                   <button className="btn-delete" onClick={handleDeletePost}>DELETE</button>
                               </div>
                         </div>       
                         )) 

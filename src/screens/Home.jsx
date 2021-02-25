@@ -35,18 +35,18 @@ useEffect(()=>{
             GetPosts()
 },[])
 
-       
+       console.log(data)
             if(data){
                   return (  
                               data.map(obj => (
-            
-                              <div className="card">
+                              <div className="card" key={obj.id}>
                                     <div className="card-username__info">
                                           <div>
                                                 <img src={obj.imageUrl} alt=""/>
                                           </div>
                                           <h2> {obj.name}</h2>
                                     </div>
+                                    <p className="created-at">{obj.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                                     <div className="detail">
                                           <hr/>
                                           <br/>
@@ -60,8 +60,8 @@ useEffect(()=>{
                                     </div>
             
                                     <div className="card-reaction">
-                                          <span><i class="fas fa-thumbs-up"></i> {obj.likes}</span>
-                                          <span><i class="fas fa-thumbs-down"></i> {obj.dislikes}</span>
+                                          <span><i className="fas fa-thumbs-up"></i> {obj.likes}</span>
+                                          <span><i className="fas fa-thumbs-down"></i> {obj.dislikes}</span>
                                     </div>
             
                                     <div className="card-comment">
