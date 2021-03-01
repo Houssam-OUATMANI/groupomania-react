@@ -1,33 +1,54 @@
-import React, {useEffect , useState} from 'react'
-
+import React, {useEffect , useState, useContext, Fragment} from 'react'
 import { useForm } from  'react-hook-form'
+import { Link} from 'react-router-dom'
 
+import { AuthContext } from '../context/auth.context'
 import './home.css'
+import LikeIcone from '../components/Navigation/LikeIcone';
+
 
 
 export default function Home() {
 
+      const auth = useContext(AuthContext)
       const [data, setData] =  useState('')
       const { handleSubmit , register , errors } = useForm()
 
+      //Likes state
+
+      const [likes, setLikes] = useState()
+      const [disLikes, setDisLikes] = useState()
+
+      // Comments
+      const [comments, setComments ] = useState([])
+
       //console.log( 'data', data)
       
-      async function sendComments(data){
+      // async function sendComments(data){
+      //       const URL = "http://127.0.0.1:5000/api/comments/add-comment/"
+      //       console.log(data)
+      //       const sendedData = await fetch(URL, {
+      //             method : 'post',
+      //             headers : {
+      //                   'Content-Type' : 'application/json',
+      //                   Authorization : 'Bearer ' + auth.token
+      //             },
+      //             body : JSON.stringify(data)
+      //       })
 
-            const sendedData = await fetch('', {
-                  method : 'post',
-                  headers : {
-                        'Content-Type' : 'application/json'
-                  },
-                  body : JSON.stringify(data)
-            })
-      }
+      //       const response = await sendedData.json()
+      //       console.log(response)
+      // }
       
 useEffect(()=>{
 
             async function GetPosts(){
       
-                  const data = await fetch('http://127.0.0.1:5000/api/posts/all-posts')
+                  const data = await fetch('http://127.0.0.1:5000/api/posts/all-posts', {
+                        headers: {
+                              Authorization : 'Bearer ' + auth.token
+                        }
+                  })
                   const response = await data.json()
                   console.log(response)
                   setData(response)
@@ -36,17 +57,17 @@ useEffect(()=>{
 },[])
 
        console.log(data)
-            if(data){
+            if(data && data.length > 0 ){
                   return (  
                               data.map(obj => (
                               <div className="card" key={obj.id}>
                                     <div className="card-username__info">
                                           <div>
-                                                <img src={obj.imageUrl} alt=""/>
+                                                <img src={obj.user.imageUrl} alt=""/>
                                           </div>
-                                          <h2> {obj.name}</h2>
+                                          <h2 className="username"> {obj.user.username}</h2>
                                     </div>
-                                    <p className="created-at">{obj.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
+                                    <p className="created-at"> Posté le {obj.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                                     <div className="detail">
                                           <hr/>
                                           <br/>
@@ -60,21 +81,54 @@ useEffect(()=>{
                                     </div>
             
                                     <div className="card-reaction">
-                                          <span><i className="fas fa-thumbs-up"></i> {obj.likes}</span>
-                                          <span><i className="fas fa-thumbs-down"></i> {obj.dislikes}</span>
+                                         <LikeIcone likes={obj.likes}/>
                                     </div>
             
                                     <div className="card-comment">
-                                          <form onSubmit={handleSubmit}>
-                                                <input type="text" placeholder="Comment ...." ref={register({min : 1})}/>
+                                          <form onChange={(e)=> {
+                                                e.preventDefault()
+                                                console.log(e.target.value)
+                                                setComments(e.target.value)
+                                          }}>
+                                                <input type="text" name="comment" placeholder="Comment ...." ref={register({required : true})}/>
+                                                <button className="btn-comment" type="submit">Comment</button>
                                           </form>
+
                                     </div>
+                                          <div className="comments">
+                                                <ul className="comments-list">
+                                                      {obj.comments.map((com)=>(
+                                                            <li key={com.id}>
+                                                                 <div>
+                                                                        <div className="card-username__info" id="username-comment">
+                                                                              <div id="comment-left">
+                                                                                    <img src={com.user.imageUrl} alt=""/>
+                                                                              </div>
+                                                                              <div id="comment-right">
+                                                                                    <p>{com.user.username} <i className="fas fa-arrow-right fa-lg"></i> Le {com.createdAt.split('T').join(' à ').split('.000Z').join('')} </p>
+                                                                                    <h3>{com.comment}</h3>
+                                                                              </div>
+                                                                              
+                                                                        </div>
+                                                                        <div>
+                                                                        </div>
+                                                                 </div>
+                                                            </li>
+                                                      ))}
+                                                </ul>
+                                          </div>
                               </div>       
                               )) 
                         )
 
                   }
-                  return(<h2>Pas de post</h2>)
+                  return(
+                        <div className="post-null-container">
+                              <h2 className="post-null">Aucune publication n'a été crée pour le moment</h2>
+                              <Link className="post-null-add" to="/add-post">Par ici pour crée une publication</Link>
+                        </div>
+                        
+                  )
       
 }
 

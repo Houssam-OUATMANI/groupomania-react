@@ -1,9 +1,12 @@
-import React, {useEffect , useState} from 'react'
+import React, {useEffect , useState, useContext} from 'react'
+import { Link} from 'react-router-dom'
 
+import { AuthContext } from '../context/auth.context'
 import './myPost.css'
+import LikeIcone from '../components/Navigation/LikeIcone';
 
 export default function MyPost(){
-
+      const auth = useContext(AuthContext)
       const [data, setData] =  useState('')
       const userCredantials = JSON.parse(localStorage.getItem('auth'))
 
@@ -12,7 +15,11 @@ export default function MyPost(){
                   const URL = `http://127.0.0.1:5000/api/posts/get-my-posts/${userCredantials.userId}`
                   console.log(URL)
 
-                  const getPosts = await fetch(URL)
+                  const getPosts = await fetch(URL, {
+                        headers : {
+                              Authorization : 'Bearer ' + auth.token
+                        }
+                  })
                   const response = await getPosts.json()
 
                   setData(response)
@@ -35,20 +42,24 @@ export default function MyPost(){
       if(data){
             if(data.length < 1){
                   return(
-                        <h1>VOUS N'AVEZ CRÉE AUNCUN POST</h1>
-                  )
+                        <div className="post-null-container">
+                              <h2 className="post-null">Aucune publication n'a été crée pour le moment</h2>
+                              <Link className="post-null-add" to="/add-post">Par ici pour crée une publication</Link>
+                        </div>
+            )
             }
 
             return(
                   data.map(obj => (
             
-                        <div className="card">
+                        <div className="card" key={obj.id}>
                               <div className="card-username__info">
                                     <div>
-                                          <img src={obj.imageUrl} alt=""/>
+                                          <img src={obj.user.imageUrl} alt=""/>
                                     </div>
-                                    <h2> {obj.name}</h2>
+                                    <h2 className="username"> {obj.user.username}</h2>
                               </div>
+                              <p className="created-at"> Posté le {obj.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                               <div className="detail">
                                     <hr/>
                                     <br/>
@@ -62,8 +73,7 @@ export default function MyPost(){
                               </div>
       
                               <div className="card-reaction">
-                                    <span><i class="fas fa-thumbs-up"></i> {obj.likes}</span>
-                                    <span><i class="fas fa-thumbs-down"></i> {obj.dislikes}</span>
+                                  <LikeIcone likes={obj.likes}/>
                               </div>
       
                               <div className="card-edit">

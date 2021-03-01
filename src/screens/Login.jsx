@@ -24,12 +24,14 @@ export default function Login(){
                  const response = await sendedData.json()
                  console.log(response)
                  localStorage.setItem('auth' , JSON.stringify(response))
+                 sessionStorage.setItem('auth' , JSON.stringify(response))
+
      
                  if (!sendedData.ok){
                        alert(response.message)
                        throw new Error(response)
                  }else{
-                       auth.Login()
+                       auth.Login(response.userId, response.token)
                  }
                  return response
 

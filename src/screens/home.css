@@ -1,6 +1,6 @@
 .card {
      
-      width: 30rem;
+      width: 45rem;
       overflow: hidden;
       margin: 2rem auto;
       border: 5px solid rgb(255, 230, 2);
@@ -43,13 +43,13 @@
 }
 
 .card-image__post{
-      height: 250px;
-      width: 30rem;
+      height: auto;
+      width: 45rem;
       overflow: hidden;
 }
 
 .card-image__post img{
-      width: 30rem;
+      width: 45rem;
       object-fit: cover;
       height: inherit;
 }
@@ -76,7 +76,7 @@
 
 .card-comment{
       margin: 1rem 0;
-      height: 45px;
+      height: 155px;
 }
 
 .card-comment input {
@@ -92,6 +92,67 @@
       color:  crimson;
 }
 
+.username {
+      color: antiquewhite;
+}
+
+.post-null {
+      margin-top: 2rem;
+      color: antiquewhite;
+      font-size: 3rem;
+      text-transform: uppercase;
+}
+
+.post-null-add{
+      color: gold;
+      font-size: 2.5rem;
+      margin-top: 3rem;
+      text-decoration: underline;
+}
+
+.post-null-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 80vh;
+      flex-wrap: wrap;
+      flex-direction: column;
+}
+
+#username-comment{
+      justify-content: flex-start;
+      padding: 0;
+      height: 50px;
+}
+
+.comments-list{
+      padding: 0;
+      margin: 0;
+
+}
+
+.comments-list li {
+      border:  .5px solid gray;
+}
+#comment-right{
+   overflow: unset;   
+   width: 90%;  
+   margin-left: .5rem;
+}
+#comment-right p{
+     font-size: .6rem;
+     margin-bottom: 0.05rem;
+     color: antiquewhite;
+}
+
+#comment-right h3{
+      font-size: .95rem;
+}
+#comment-left{
+     margin-left: .5rem;
+      width: 30px;
+      height: 30px;
+}
 @media screen and (max-width: 500px){
       .card{
             width: 93vw;

@@ -1,4 +1,4 @@
-import  React ,{ useCallback, useState } from 'react'
+import  React ,{ useCallback, useState, useEffect } from 'react'
 
 import { BrowserRouter as Router , Switch , Route , Redirect  } from 'react-router-dom'
 
@@ -15,19 +15,33 @@ import MyPost from './screens/MyPost';
 
 function App() {
 
-const [loggedIn, setLoggedIn] = useState( false)
+const [token, setToken] = useState( false)
+const [userId, setUserId] = useState( false)
 
-const login = useCallback(()=>{
-  setLoggedIn(true)
+
+
+const login = useCallback((userId, token)=>{
+  setToken(token)
+  setUserId(userId)
 }, [])
 
 const logout = useCallback(()=>{
-  setLoggedIn(false)
-}, [])
+  localStorage.removeItem('auth')
+  setToken(false)
+},[])
+
+
+useEffect(()=>{
+  const credantials = JSON.parse(localStorage.getItem('auth'))
+
+  if(credantials && credantials.token && credantials.userId){
+    login(credantials.userId, credantials.token)
+  }
+}, [login])
 
 let routes
 
-if(loggedIn){
+if(token){
     routes = (
       <Switch>
          <Route path="/" exact>
@@ -61,7 +75,7 @@ if(loggedIn){
 
   return (
     <div className="App">
-      <AuthContext.Provider value={{ loggedIn : loggedIn, Login :login, Logout : logout }}>
+      <AuthContext.Provider value={{ loggedIn : !!token, Login :login, Logout : logout, token : token }}>
           <Router>
             <NavBar/>
             {routes}

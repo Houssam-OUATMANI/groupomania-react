@@ -1,10 +1,15 @@
-import  React, {useEffect, useState}  from 'react';
+import  React, {useEffect, useState, useContext}  from 'react';
 import { useForm } from 'react-hook-form'
+
+import {AuthContext} from '../context/auth.context'
 
 import './addPost.css'
 
 
 export default function AddPost(){
+
+
+      const auth = useContext(AuthContext)
 
        const userCredentials = JSON.parse(localStorage.getItem('auth'))
        console.log(userCredentials)
@@ -15,6 +20,7 @@ export default function AddPost(){
             const formData = new FormData()
             formData.append('title', data.title)
             formData.append('detail', data.detail)
+            formData.append('userId' , userCredentials.userId)
             formData.append('image', data.image[0])
               //const data2 = {...data , imageUrl : 'azeazeazezae.com', userId : userCredentials.userId}
               
@@ -22,10 +28,18 @@ export default function AddPost(){
 
               const sendedData  = await fetch(URL, {
                      method : 'post',
-                     body : formData
+                     body : formData,
+                     headers : {
+                           Authorization : 'Bearer ' + auth.token
+                     }
               })
 
               const response = await sendedData.json()
+              if (sendedData.ok){
+                  // eslint-disable-next-line no-restricted-globals
+                //  history.pushState('home','/')
+              }
+
               console.log(response)
               
        }
