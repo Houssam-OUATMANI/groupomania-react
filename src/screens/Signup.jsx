@@ -2,9 +2,11 @@ import  React, { useContext, useState, useEffect}  from 'react';
 import { useForm } from 'react-hook-form'
 
 import { AuthContext } from '../context/auth.context'
+import { useHistory } from 'react-router';
 
 import './signup.css'
 export default function Signup(){
+      const history = useHistory()
 
       const { handleSubmit , register , errors } = useForm()
       const auth = useContext(AuthContext)
@@ -31,10 +33,11 @@ export default function Signup(){
                   if (!sendedData.ok){
 
                     alert(response.message.errors[0].message)
-                    throw new Error(response)
+                    //throw new Error(response)
               }else{
                  alert(`${response.message} \nVeuillez vous Connecter`)
-                 auth.Login()
+                 history.push('/login')
+                 //auth.Login()
             }
      
            }catch(err){
@@ -68,8 +71,6 @@ export default function Signup(){
                        return
                  }
            },[image])
-
-
 
       return(
                   <form className="signup-form"  encType="multipart/form-data" onSubmit={handleSubmit(handleSignup)}  >

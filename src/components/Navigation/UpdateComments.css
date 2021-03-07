@@ -1,0 +1,27 @@
+.update-form{
+    display: block;
+    width: 70%;
+    margin: auto;
+}
+
+.update-form input {
+    height: 10px;
+    background-color: #B5DBF1;
+}
+
+.comment__btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment__btn-container button {
+    margin: .3rem .5rem;
+    padding:  .3rem;
+    background-color: #B5DBF1;
+    transition: .3s;
+    cursor: pointer;
+}
+.comment__btn-container button:hover {
+    background-color: burlywood;
+}

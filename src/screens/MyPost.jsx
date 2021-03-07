@@ -10,20 +10,21 @@ export default function MyPost(){
       const [data, setData] =  useState('')
       const userCredantials = JSON.parse(localStorage.getItem('auth'))
 
+
+      async function getMyPosts(){
+            const URL = `http://127.0.0.1:5000/api/posts/get-my-posts/${userCredantials.userId}`
+            console.log(URL)
+
+            const getPosts = await fetch(URL, {
+                  headers : {
+                        Authorization : 'Bearer ' + auth.token
+                  }
+            })
+            const response = await getPosts.json()
+
+            setData(response)
+      }
       useEffect(()=>{
-            async function getMyPosts(){
-                  const URL = `http://127.0.0.1:5000/api/posts/get-my-posts/${userCredantials.userId}`
-                  console.log(URL)
-
-                  const getPosts = await fetch(URL, {
-                        headers : {
-                              Authorization : 'Bearer ' + auth.token
-                        }
-                  })
-                  const response = await getPosts.json()
-
-                  setData(response)
-            }
             getMyPosts()
       },[])
       
@@ -35,8 +36,18 @@ export default function MyPost(){
       }
       // DELETE POST
 
-      function handleDeletePost(e){
-            e.target.parentElement.remove()
+    async function handleDeletePost(e){
+            const URL = "http://127.0.0.1:5000/api/posts/delete-post/"
+            const id = e.target.dataset.id
+            console.log(id)
+            const deletePost = await fetch(URL+id, {
+                  method : 'delete',
+                  headers : {
+                        Authorization : 'Bearer ' + auth.token
+                  }
+            })
+            const response = await deletePost.json().then(getMyPosts())
+            console.log(response)
       }
 
       if(data){
@@ -52,7 +63,7 @@ export default function MyPost(){
             return(
                   data.map(obj => (
             
-                        <div className="card" key={obj.id}>
+                        <div className="card" key={obj.id} >
                               <div className="card-username__info">
                                     <div>
                                           <img src={obj.user.imageUrl} alt=""/>
@@ -78,7 +89,7 @@ export default function MyPost(){
       
                               <div className="card-edit">
                                    <button className="btn-update" onClick={handleUpdatePost}>UPDATE</button>
-                                   <button className="btn-delete" onClick={handleDeletePost}>DELETE</button>
+                                   <button className="btn-delete" onClick={handleDeletePost} data-id={obj.id}>DELETE</button>
                               </div>
                         </div>       
                         )) 

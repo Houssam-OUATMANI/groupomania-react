@@ -1,5 +1,6 @@
 import  React, {useEffect, useState, useContext}  from 'react';
 import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router';
 
 import {AuthContext} from '../context/auth.context'
 
@@ -8,6 +9,7 @@ import './addPost.css'
 
 export default function AddPost(){
 
+      const history = useHistory()
 
       const auth = useContext(AuthContext)
 
@@ -33,11 +35,9 @@ export default function AddPost(){
                            Authorization : 'Bearer ' + auth.token
                      }
               })
-
               const response = await sendedData.json()
               if (sendedData.ok){
-                  // eslint-disable-next-line no-restricted-globals
-                //  history.pushState('home','/')
+                  history.push('/')
               }
 
               console.log(response)

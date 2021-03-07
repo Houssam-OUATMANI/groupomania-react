@@ -13,7 +13,7 @@ export default function NavBar(){
     
     return(
         <div className='navbar__container'>
-            <h1 className ="logo">GROUPO<span>MANIA</span></h1>
+            <h1 className ="logo">SOCIAL<span style={{ color : "blue", fontSize : '2rem'}}> NET BEURK</span></h1>
             <nav className='navigation'>
                 <ul>
                     {!auth.loggedIn && (

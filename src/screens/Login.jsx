@@ -24,7 +24,7 @@ export default function Login(){
                  const response = await sendedData.json()
                  console.log(response)
                  localStorage.setItem('auth' , JSON.stringify(response))
-                 sessionStorage.setItem('auth' , JSON.stringify(response))
+                // sessionStorage.setItem('auth' , JSON.stringify(response))
 
      
                  if (!sendedData.ok){
