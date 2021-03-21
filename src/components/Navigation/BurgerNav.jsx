@@ -1,36 +1,20 @@
-import React, {Fragment, useContext, useState} from 'react'
+import React, { useContext } from 'react';
+import ReactDOM from 'react-dom'
+import './BurgerNav.css'
 import { NavLink } from 'react-router-dom'
 
 import { AuthContext } from '../../context/auth.context'
-import './NavBar.css'
-import Logo from '../../assets/icon-left-font-monochrome-black.svg'
-import BurgerNav from './BurgerNav'
-
-export default function NavBar(){
-
+export default function BurgerNav(){
     const auth = useContext(AuthContext)
-   //const logout = ()=>  localStorage.removeItem('auth')
-    const [ burgerNav, setBurgerNav ] = useState(false) 
-    console.log(burgerNav)
-
+    
     function handleLougout(){
         const out = window.confirm('Se Déconnecter ?')
         if(out){
             auth.Logout()
         }
     }
-    return(
-        <Fragment>
-
-        {burgerNav &&
-            <BurgerNav/>
-        }
-
-        <div className='navbar__container'>
-            <i class="fas fa-bars fa-3x" onClick={()=>{setBurgerNav(!burgerNav)}}></i>
-
-            <h1 className ="logo"><NavLink to="/"> <img src={Logo} width="250"alt="Logo"/></NavLink> </h1>
-            <nav className='navigation'>
+     const bgNav =    <aside>
+            <nav className='burger-navigation'>
                 <ul>
                     {!auth.loggedIn && (
                         <li><NavLink to='/login'>Connexion</NavLink> </li>
@@ -51,13 +35,10 @@ export default function NavBar(){
                         <li><NavLink to='/profile'>Mon Profile</NavLink></li>
                     )}
                     {auth.loggedIn && (
-                        //<button className='logout-btn' onClick={auth.Logout }>Deconnexion</button>
-                        <i className="fas fa-sign-out-alt fa-lg" onClick={handleLougout}></i>
+                        <i title="Se Déconnecter" className="fas fa-sign-out-alt fa-lg" onClick={handleLougout}></i>
                     )}
                 </ul>
             </nav>
-        </div>
-        </Fragment>
-    )
+        </aside>
+        return ReactDOM.createPortal(bgNav, document.getElementById('burger-nav'))
 }
-

@@ -3,6 +3,10 @@
       margin:10rem auto;
 }
 
+.form-group label {
+      text-transform: uppercase;
+      color: rgb(163, 163, 163);
+}
 
 @media screen and (max-width: 600px){
       .add-form{

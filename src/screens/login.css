@@ -13,8 +13,8 @@ h3{
 label {
       font-size: 1.5rem;
       margin: .5rem 0;
-      text-decoration: underline;
-      color: rgb(94, 255, 0);
+      font-weight: 700;
+      color: rgb(218, 212, 137);
       cursor: pointer;
 }
 .form-group label ,input {

@@ -7,14 +7,15 @@ import UpdateProfilePhoto from '../components/Navigation/UpdateProfilePhoto';
 import UpdateProfileEmail from '../components/Navigation/UpdateProfileEmail';
 import UpdateProfileUsername from '../components/Navigation/UpdateProfileUsername';
 
-
-
+const USER_INFO_URL = "http://127.0.0.1:5000/api/auth/user-info"
+const UPDATE_USER_URL = "http://127.0.0.1:5000/api/auth/update-user/"
+const DELETE_ACCOUNT_URL = "http://127.0.0.1:5000/api/auth/delete-account"
 export default function Profile(){
 
       const auth = useContext(AuthContext)
       const userCredentials = JSON.parse(localStorage.getItem('auth')) 
       const [data, setData] = useState('')
-      const { handleSubmit, register, errors } = useForm()
+      const { handleSubmit, register} = useForm()
 
       const [showUpdatePhoto, setShowUpdatePhoto] = useState(false)
       const [showUpdateEmail, setShowUpdateEmail] = useState(false)
@@ -24,12 +25,12 @@ export default function Profile(){
 
       async function handleUpdateProfilePhoto(data){
             const { userId } = userCredentials
-            const URL = "http://127.0.0.1:5000/api/auth/update-user/"
+           
 
             const formData = new FormData()
 
            formData.append('image', data.image[0])
-            const sendPhoto = await fetch(URL+userId, {
+            const sendPhoto = await fetch(UPDATE_USER_URL+userId, {
                   method : 'put',
                   headers : {
                         Authorization : "Bearer " + auth.token
@@ -46,9 +47,8 @@ export default function Profile(){
       async function handleUpdateProfileEmail(data){
             console.log(data)
             const { userId } = userCredentials
-            const URL = "http://127.0.0.1:5000/api/auth/update-user/"
 
-            const sendedEmail = await fetch(URL+userId, {
+            const sendedEmail = await fetch(UPDATE_USER_URL+userId, {
                   method : 'put',
                   headers : {
                         "Content-Type" : "application/json",
@@ -65,8 +65,7 @@ export default function Profile(){
 
       async function handleUpdateProfileUsername(data){
             const {userId} = userCredentials
-            const URL = "http://127.0.0.1:5000/api/auth/update-user/"
-            const sendedUsername = await fetch(URL+userId, {
+            const sendedUsername = await fetch(UPDATE_USER_URL+userId, {
                   method : 'put',
                   headers : {
                         "Content-Type" : "application/json",
@@ -83,7 +82,7 @@ export default function Profile(){
 
       async function getUserData(){
             
-            const URL = `http://127.0.0.1:5000/api/auth/user-info/${userCredentials.userId}`
+            const URL = `${USER_INFO_URL}/${userCredentials.userId}`
             
             const data = await fetch(URL, {
                   headers: {
@@ -93,7 +92,6 @@ export default function Profile(){
             const response = await data.json()
             
             setData(response)
-            console.log(response)
       }
 useEffect(()=>{
       getUserData()
@@ -102,7 +100,7 @@ useEffect(()=>{
 
       async function deleteUser(){
             const conf = window.confirm('Etes vous sur de vouloir Supprimer definitivement votre compte ?')
-            const URL = `http://127.0.0.1:5000/api/auth/delete-account/${userCredentials.userId}`
+            const URL = `${DELETE_ACCOUNT_URL}/${userCredentials.userId}`
 
             if (conf){
                   const sendedData = await fetch(URL, {
@@ -134,26 +132,26 @@ useEffect(()=>{
                                           <p>Profil Modifié le : {data.updatedAt.split('T').join(' à ').split('.000Z')}</p>
                               </div>
                               <div className="user-action">
-                                    <i title="Changer de nom d'utilisateur ?" class="fas fa-user white fa-3x"  onClick={()=>{
+                                    <i title="Changer de nom d'utilisateur ?" className="fas fa-user white fa-3x"  onClick={()=>{
                                            setShowUpdateUsername(!showUpdateUsername)
                                            setShowUpdateEmail(false)
                                            setShowUpdatePhoto(false)
                                           }}
                                     ></i>
                                     
-                                    <i title="Changer d'email ?" class="fas fa-envelope-open white fa-3x"  onClick={()=>{
+                                    <i title="Changer d'email ?" className="fas fa-envelope-open white fa-3x"  onClick={()=>{
                                            setShowUpdateEmail(!showUpdateEmail)
                                            setShowUpdatePhoto(false)
                                            setShowUpdateUsername(false)
                                            }}>
                                     </i>
-                                    <i title="Changer de photo ?" class="fas fa-portrait white fa-3x" onClick={()=>{ 
+                                    <i title="Changer de photo ?" className="fas fa-portrait white fa-3x" onClick={()=>{ 
                                           setShowUpdatePhoto(!showUpdatePhoto)
                                           setShowUpdateEmail(false)
                                           setShowUpdateUsername(false)
                                           }}>
                                     </i>
-                                    <i title="Supprimer votre compte ?" class="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
+                                    <i title="Supprimer votre compte ?" className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
                                     
                               </div>
                         </div>

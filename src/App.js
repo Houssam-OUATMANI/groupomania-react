@@ -8,7 +8,6 @@ import Signup from './screens/Signup';
 import Login from './screens/Login';
 import AddPost from './screens/AddPost';
 
-
 import { AuthContext } from './context/auth.context'
 import Profile from './screens/Profile';
 import MyPost from './screens/MyPost';
@@ -64,6 +63,7 @@ if(token){
     <Switch>
                  <Route path='/login' exact>
                     <Login/>
+                    
                   </Route>
                 <Route path='/signup'>
                     <Signup/>
@@ -72,7 +72,6 @@ if(token){
     </Switch>
   )
 }
-
   return (
     <div className="App">
       <AuthContext.Provider value={{ loggedIn : !!token, Login :login, Logout : logout, token : token }}>

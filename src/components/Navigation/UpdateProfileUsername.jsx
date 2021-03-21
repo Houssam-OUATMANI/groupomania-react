@@ -1,13 +1,12 @@
 import React from 'react'
-
-export default function UpdateProfileUsername({submit, register}){
+import './UpdateProfile.css'
+export default function UpdateProfileUsername({submit, register, title}){
     return(
-        <form className="signup-form" onSubmit={submit}  >
+        <form className="signup-form margin" onSubmit={submit}  >
         <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" name="username" id="username" placeholder="username..." ref={register}/>              
+              <label htmlFor="username"> { title || "Username"}</label>
+              <input className="add-input" type="text" name="username" id="username" placeholder={ title === undefined ?  'username...' : title } ref={register}/>              
         </div>
-        <button type="submit">Mettre à jour</button>
   </form>
     )
 }

@@ -20,8 +20,10 @@
     width: 45rem;
     overflow: hidden;
     margin: 2rem auto;
-    border: 5px solid rgb(255, 230, 2);
-    border-radius: 3px;
+    animation: borderAnimation 20s ease infinite;
+    border-radius: 15px;
+    background-color: rgb(24, 22, 22);
+    box-shadow: -10px 0px 20px black;
 }
 
 .card-username__info {
@@ -32,8 +34,9 @@
     justify-content: space-between;
     padding: 0 0.5rem;
 }
+
 .created-at {
-    color: yellow;
+    color: #b8a2a2;
     margin-top: 0.5rem;
     padding-left: 0.5rem;
 }
@@ -88,9 +91,11 @@
 }
 
 .card-comment {
-    height: 100px;
+    height: 35px;
 }
-
+.comment-list{
+    transition: 2s;
+}
 .card-comment input {
     display: block;
     width: 70%;
@@ -120,7 +125,7 @@
 }
 
 .username {
-    color: antiquewhite;
+    color: #b8a2a2;
 }
 
 .actions__container{
@@ -186,8 +191,48 @@
     width: 30px;
     height: 30px;
 }
-@media screen and (max-width: 500px) {
+.card-input {
+    background-color: #4d2435 !important;
+    padding: .3rem;
+    transition: .3s;
+}
+.add-input {
+    background-color: #4d2435;
+    transition: .3s;
+}
+.add-input:focus{
+    background-color: #85083c !important;
+    transform: scale(1.15) !important;
+    color: antiquewhite !important;
+    outline: none;
+}
+
+.card-input:focus{
+    background-color: #85083c !important;
+    transform: scale(1.15) !important;
+    color: antiquewhite !important;
+}
+
+@keyframes borderAnimation {
+    from {
+       border: 15px solid #4d2435;
+    }
+    50%{
+      border: 15px solid #85083c; 
+    }
+    to{
+        border:  15px solid #4d2435;
+    }
+}
+@media screen and (max-width: 800px) {
+    .card-input:focus,.add-input:focus {
+        transform: scale(1.02) !important;
+    }
     .card {
+        width: 93vw;
+    }
+
+    .card-image__post img {
         width: 93vw;
     }
 }

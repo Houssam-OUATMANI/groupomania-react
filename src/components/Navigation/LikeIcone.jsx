@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 
 export default function LikeIcone(props){
 
@@ -18,7 +18,7 @@ export default function LikeIcone(props){
       console.log('like', like)
       return(
             <span onClick={isClicked === false ? handleAddLikes : handleCancelLikes}>
-                  <i className={isClicked === false ?"fas fa-heart fa-lg " : "fas fa-heart fa-lg red"}></i> {like}
+                  <i className={isClicked === false ?"fas fa-heart fa-lg fa-2x " : "fas fa-heart fa-2x red"}></i> {like}
             </span>
       )
 }

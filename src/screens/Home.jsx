@@ -1,4 +1,4 @@
-import React, {useEffect , useState, useContext, Fragment} from 'react'
+import React, {useEffect , useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
 
 import { AuthContext } from '../context/auth.context'
@@ -6,7 +6,9 @@ import './home.css'
 import LikeIcone from '../components/Navigation/LikeIcone';
 import UpdateComments from '../components/Navigation/UpdateComments';
 
-
+const ALL_POST_URL = "http://127.0.0.1:5000/api/posts/all-posts"
+const DELETE_COMMENT_URL = "http://127.0.0.1:5000/api/comments/delete-comment/"
+const ADD_COMMENT_URL =    "http://127.0.0.1:5000/api/comments/add-comment/"
 
 export default function Home() {
 
@@ -18,7 +20,6 @@ export default function Home() {
       // PUBLICATIONS STATE
       const [data, setData] =  useState('')
       
-
       // Comments
       const [showComments, setShowComments] = useState(false)
       const [comments, setComments ] = useState([])
@@ -38,17 +39,15 @@ export default function Home() {
 
       async function handleDeleteComment(e){
             const id = e.target.dataset.id
-            console.log(id)
-                              const URL = "http://127.0.0.1:5000/api/comments/delete-comment/"
-                              const deleteComment = await fetch(URL+id, {
-                  
-                                    method : "delete",
-                                    headers : {
-                                          Authorization : "Bearer " + auth.token
-                                    }
-                              })
-                               await deleteComment.json()
-                             await GetPosts()
+                              
+            const deleteComment = await fetch(DELETE_COMMENT_URL+id, {
+                  method : "delete",
+                  headers : {
+                        Authorization : "Bearer " + auth.token
+                  }
+            })
+            await deleteComment.json()
+            await GetPosts()
       }
        async function handleComment(e){
              e.preventDefault()
@@ -60,9 +59,9 @@ export default function Home() {
                    userId : userCredentials.userId
              }
 
-                  const URL = "http://127.0.0.1:5000/api/comments/add-comment/"
+                
                   console.log(sendComment)
-                  const sendedData = await fetch(URL, {
+                  const sendedData = await fetch(ADD_COMMENT_URL, {
                         method : 'post',
                         headers : {
                               'Content-Type' : 'application/json',
@@ -80,13 +79,12 @@ export default function Home() {
        }
        async function GetPosts(){
  
-             const data = await fetch('http://127.0.0.1:5000/api/posts/all-posts', {
+             const data = await fetch(ALL_POST_URL, {
                    headers: {
                          Authorization : 'Bearer ' + auth.token
                    }
              })
              const response = await data.json()
-             console.log(response)
              setData(response)
        }
       
@@ -126,19 +124,20 @@ useEffect(()=>{
             
                                     <div className="card-comment">
                                           <form onSubmit={handleComment} data-id={obj.id}>
-                                                <input  type="text" name="comment" placeholder="Comment ...." value={comments} onChange={e => setComments(e.target.value)}/>
-                                                <button className="btn-comment" type="submit">Comment</button>
+                                                <input className="card-input"  type="text" name="comment" placeholder="Laisser un commentaire 🙂" value={comments} onChange={e => setComments(e.target.value)}/>
+            
                                           </form>
 
                                     </div>
                                           <div className="comments">
                                                 <ul className="comments-list">
                                                       <span title="Voir les commentaires" onClick={handleShowComments}>
-                                                            <i class="fas fa-comments fa-lg white" >&nbsp;{obj.comments.length}</i> 
+                                                            <i className="fas fa-comments fa-lg white" >&nbsp;{obj.comments.length}</i> 
                                                       </span>
                                                       { showComments &&
+                                                            
                                                             obj.comments.map((com)=>(
-                                                                  <li key={com.id}>
+                                                                  <li key={com.id} className="comment-list">
                                                                        <div>
                                                                               <div className="card-username__info" id="username-comment">
                                                                                     <div id="comment-left">
@@ -151,7 +150,7 @@ useEffect(()=>{
                                                                                     {userCredentials.userId === com.user.id &&
                                                                                           <div className="actions__container">
                                                                                                 <i title="Suppression" className="fas fa-trash-alt fa-lg red" onClick={handleDeleteComment} data-id={com.id}></i>&nbsp;&nbsp;
-                                                                                                <i title="Modification" class="fas  fa-edit fa-lg green" onClick={handleShowUpdateForm} data-id={com.id}></i>
+                                                                                                <i title="Modification" className="fas  fa-edit fa-lg green" onClick={handleShowUpdateForm} data-id={com.id}></i>
                                                                                           </div>
                                                                                     }
                                                                                     

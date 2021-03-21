@@ -8,7 +8,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: gold;
+    animation: bgAnimation 20s ease infinite;
+   
     height: 75px;
     padding: 0 1rem;
 }
@@ -16,6 +17,10 @@
 .logo {
    font-size: 1.3rem;
 }
+.logo img {
+    cursor: pointer;
+}
+
 
 .logo span{
     color: #45cc33;
@@ -37,7 +42,7 @@
 
 .navigation ul li a {
     font-size: 1.2rem;
-    color: #1B1E3D;
+    color: #b8a2a2;
     font-weight: bold;
 }
 
@@ -70,17 +75,42 @@
 .red {
     color:  crimson;
 }
+.fa-bars{
+    display: none;
+}
 
-@media screen and (max-width: 600px){
+@keyframes bgAnimation {
+    from {
+       background-color:  #4d2435;
+    }
+    50%{
+      background-color:  #85083c; 
+    }
+    to{
+        background-color:   #4d2435;
+    }
+}
+@media screen and (max-width: 800px){
   
+    .fa-bars{
+        display: inline;
+    }
+   
   .logo , .logo span {
-      font-size: .8rem;
-  }
-
-  .navigation ul li a{
-      font-size: .75rem;
+      font-size: 1rem;
   }
   .navigation {
-      width: 85%;
+      display: none;
+  }
+  .navigation ul li a{
+      font-size: .65rem;
+  }
+  .navigation {
+      width: 88%;
+      justify-content: space-between;
+  }
+
+  .logo a img {
+      width: 10rem;
   }
 }

@@ -1,4 +1,4 @@
-import  React, {useEffect, useState, useContext}  from 'react';
+import  React, { useEffect, useState, useContext }  from 'react';
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router';
 
@@ -6,16 +6,16 @@ import {AuthContext} from '../context/auth.context'
 
 import './addPost.css'
 
+const ADD_POST_URL = "http://127.0.0.1:5000/api/posts/add-post"
+const HOME = "/"
 
 export default function AddPost(){
 
       const history = useHistory()
-
       const auth = useContext(AuthContext)
-
-       const userCredentials = JSON.parse(localStorage.getItem('auth'))
-       console.log(userCredentials)
-       const { handleSubmit , register , errors } = useForm()
+      const { handleSubmit , register , errors } = useForm()
+      
+      const userCredentials = JSON.parse(localStorage.getItem('auth'))
 
        async function sendPost(data){
 
@@ -23,25 +23,19 @@ export default function AddPost(){
             formData.append('title', data.title)
             formData.append('detail', data.detail)
             formData.append('userId' , userCredentials.userId)
-            formData.append('image', data.image[0])
-              //const data2 = {...data , imageUrl : 'azeazeazezae.com', userId : userCredentials.userId}
-              
-              const URL = "http://127.0.0.1:5000/api/posts/add-post"
+            formData.append('image', data.image[0])              
 
-              const sendedData  = await fetch(URL, {
+              const sendedData  = await fetch(ADD_POST_URL, {
                      method : 'post',
                      body : formData,
                      headers : {
                            Authorization : 'Bearer ' + auth.token
                      }
               })
-              const response = await sendedData.json()
+              await sendedData.json()
               if (sendedData.ok){
-                  history.push('/')
+                  history.push(HOME)
               }
-
-              console.log(response)
-              
        }
 
        const [image, setImage] = useState()
@@ -74,15 +68,15 @@ export default function AddPost(){
       return (
             <form className="add-form"  onSubmit={handleSubmit(sendPost)}>
                  <div className="form-group">
-                        <label htmlFor="title">Title</label>
-                        <input type="text" placeholder="Title" name="title" ref={register}/>
+                        <label htmlFor="title">Titre</label>
+                        <input className="add-input" type="text" placeholder="Title" name="title" ref={register} />
                  </div>
                  <div className="form-group">
                         <label htmlFor="email">Description</label>
-                        <input type="text" placeholder="Description" name="detail" ref={register}/>
+                        <input className="add-input" type="text" placeholder="Description" name="detail" ref={register}/>
                  </div>
                  <div className="form-group">
-                        <label htmlFor="image">Upload image</label>
+                        <label htmlFor="image">Image/Gif</label>
                         <input type="file"  id="image" name="image" accept=".png, .jpeg, .jpg, .gif" onChange={imageHandler} ref={register({required :true})}/>
                         { previewUrl &&
                                     <div className="image-preview">
@@ -91,7 +85,7 @@ export default function AddPost(){
                         }
                        {errors.image && <code>Image Obligatoire</code>}
                  </div>
-                 <button type="submit">Post</button>
+                 <button type="submit">Publier</button>
             </form>
       )
 }

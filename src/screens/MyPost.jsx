@@ -1,68 +1,108 @@
-import React, {useEffect , useState, useContext} from 'react'
-import { Link} from 'react-router-dom'
+import React, {useEffect , useState, useContext, Fragment} from 'react'
+import { Link } from 'react-router-dom'
 
 import { AuthContext } from '../context/auth.context'
 import './myPost.css'
 import LikeIcone from '../components/Navigation/LikeIcone';
+import UpdateProfilePhoto from '../components/Navigation/UpdateProfilePhoto';
+import UpdateProfileUsername from '../components/Navigation/UpdateProfileUsername';
+
+
+const GET_MY_POSTS_URL = "http://127.0.0.1:5000/api/posts/get-my-posts"
+const DELETE_POST_URL = "http://127.0.0.1:5000/api/posts/delete-post/"
+const DELETE_COMMENT_URL = "http://127.0.0.1:5000/api/comments/delete-comment/"
 
 export default function MyPost(){
       const auth = useContext(AuthContext)
       const [data, setData] =  useState('')
       const userCredantials = JSON.parse(localStorage.getItem('auth'))
 
+     
+
+      // state form update
+      const [showUpdateDesc, setShowUpdateDesc] = useState(false)
+      const [showUpdatePic, setShowUpdatePic] = useState(false)
+      const [showComments, setShowComments]= useState(true)
+
 
       async function getMyPosts(){
-            const URL = `http://127.0.0.1:5000/api/posts/get-my-posts/${userCredantials.userId}`
-            console.log(URL)
-
+            const URL = `${GET_MY_POSTS_URL}/${userCredantials.userId}`
             const getPosts = await fetch(URL, {
                   headers : {
                         Authorization : 'Bearer ' + auth.token
                   }
             })
             const response = await getPosts.json()
-
             setData(response)
       }
       useEffect(()=>{
             getMyPosts()
       },[])
       
-      console.log(data)
+      // console.log("Data",data)
 
-      // Update POST
-      function handleUpdatePost(e){
-          
-      }
+    
+
+      // async function updateDescription(data){
+      //       URL
+      //       API CALL
+
+      //       setShowUpdateDesc(false)
+      //       getMyPosts()
+      // }
+
+      // async function updatePic(data){
+      //       URL
+      //       API CALL
+
+      //       setShowUpdatePic(false)
+      //       getMyPosts()
+      // }
       // DELETE POST
 
     async function handleDeletePost(e){
-            const URL = "http://127.0.0.1:5000/api/posts/delete-post/"
+          const conf = window.confirm("Cette publication sera definitivement suprimmée")
             const id = e.target.dataset.id
-            console.log(id)
-            const deletePost = await fetch(URL+id, {
-                  method : 'delete',
-                  headers : {
-                        Authorization : 'Bearer ' + auth.token
-                  }
-            })
-            const response = await deletePost.json().then(getMyPosts())
-            console.log(response)
+
+            if(conf){
+                  const deletePost = await fetch(DELETE_POST_URL+id, {
+                        method : 'delete',
+                        headers : {
+                              Authorization : 'Bearer ' + auth.token
+                        }
+                  })
+                  await deletePost.json().then(getMyPosts())
+            }
       }
+
+     async function handleDeleteComment(e){
+            const id = e.target.dataset.id
+                              
+                              const deleteComment = await fetch(DELETE_COMMENT_URL+id, {
+                                    method : "delete",
+                                    headers : {
+                                          Authorization : "Bearer " + auth.token
+                                    }
+                              })
+                               await deleteComment.json()
+                             await getMyPosts()
+      }
+
 
       if(data){
             if(data.length < 1){
                   return(
                         <div className="post-null-container">
-                              <h2 className="post-null">Aucune publication n'a été crée pour le moment</h2>
-                              <Link className="post-null-add" to="/add-post">Par ici pour crée une publication</Link>
+                              <h2 className="post-null">Tu n'as crée aucune publication 😩 </h2>
+                              <Link className="post-null-add" to="/add-post">Par ici pour  en crée une 🙂 </Link>
                         </div>
             )
             }
 
             return(
                   data.map(obj => (
-            
+                        <Fragment>
+
                         <div className="card" key={obj.id} >
                               <div className="card-username__info">
                                     <div>
@@ -86,12 +126,55 @@ export default function MyPost(){
                               <div className="card-reaction">
                                   <LikeIcone likes={obj.likes}/>
                               </div>
+                              <ul className="comments-list">
+                                    <span title="Voir les commentaires" onClick={()=> setShowComments(!showComments)}>
+                                          <i className="fas fa-comments fa-lg white" >&nbsp;{obj.comments.length === 0 ? " 😔" : obj.comments.length}</i> 
+                                    </span>
+                             {showComments &&
+                              obj.comments.map(com => (
+                                    <li key={com.id}>
+                                        <div className="card-username__info" id="username-comment">
+                                                <div id="comment-left">
+                                                      <img src={com.user.imageUrl} alt=""/>
+                                                </div>
+                                                <div id="comment-right">
+                                                      <p>{com.user.username} <i className="fas fa-arrow-right fa-lg"></i> Le {com.createdAt.split('T').join(' à ').split('.000Z').join('')} </p>
+                                                      <h3>{com.comment}</h3>
+                                                </div>
+                                                <div className="actions__container">
+                                                      <i title="Suppression" className="fas fa-trash-alt fa-lg red" onClick={handleDeleteComment} data-id={com.id}></i>&nbsp;&nbsp;
+                                                </div>
+                                          </div>
+                                    </li>
+                              ))
+                             }
+                             </ul>
       
                               <div className="card-edit">
-                                   <button className="btn-update" onClick={handleUpdatePost}>UPDATE</button>
-                                   <button className="btn-delete" onClick={handleDeletePost} data-id={obj.id}>DELETE</button>
+                                   <i title="Mettre à jour la description ?" className="fas fa-info white fa-3x" onClick={(e)=> {
+                                       setShowUpdateDesc( e.currentTarget.showUpdateDesc = !showUpdateDesc)
+                                          console.log(e.currentTarget.setShowUpdateDesc, "salut")
+                                         setShowUpdatePic(false)
+                                          }}>
+                                   </i>
+                                   <i title="Mettre à jour la Photo ?" className="fas fa-portrait white fa-3x" onClick={()=>{
+                                         setShowUpdatePic(!showUpdatePic)
+                                         setShowUpdateDesc(false)
+                                   }}>
+                                   </i>
+                                   <i title="Supprimer la publication ? " className="fas fa-trash-alt fa-3x white" onClick={handleDeletePost} data-id={obj.id}></i>
+      
                               </div>
                         </div>       
+                              <div className="card-update">
+                                    {showUpdatePic &&
+                                          <UpdateProfilePhoto title="Nouvelle photo"/>
+                                    }
+                                    {showUpdateDesc &&
+                                          <UpdateProfileUsername title="Nouvelle description"/>
+                                    }
+                              </div>
+                        </Fragment>
                         )) 
             )
 

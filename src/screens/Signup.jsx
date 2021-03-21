@@ -1,15 +1,17 @@
-import  React, { useContext, useState, useEffect}  from 'react';
+import  React, {useState, useEffect}  from 'react';
 import { useForm } from 'react-hook-form'
-
-import { AuthContext } from '../context/auth.context'
 import { useHistory } from 'react-router';
 
 import './signup.css'
+
+const SIGNUP_URL = "http://127.0.0.1:5000/api/auth/signup"  
 export default function Signup(){
+
+      // useHistory hook
       const history = useHistory()
 
+      // from hook
       const { handleSubmit , register , errors } = useForm()
-      const auth = useContext(AuthContext)
 
      async function handleSignup(data){
             console.log(data.image[0])     
@@ -22,29 +24,22 @@ export default function Signup(){
 
            //console.log(formData)
            try{
-                 
-            const URL = "http://127.0.0.1:5000/api/auth/signup"     
-            const sendedData = await fetch(URL, {
+            const sendedData = await fetch(SIGNUP_URL, {
                        method : 'post',
                        body : formData
                  })
             const response = await sendedData.json()
-     
                   if (!sendedData.ok){
-
                     alert(response.message.errors[0].message)
-                    //throw new Error(response)
               }else{
                  alert(`${response.message} \nVeuillez vous Connecter`)
                  history.push('/login')
-                 //auth.Login()
             }
      
            }catch(err){
                   console.log(err) 
            }
            }
-
 
            const [image, setImage] = useState()
            const [previewUrl, setPreviewUrl] = useState()
@@ -53,7 +48,6 @@ export default function Signup(){
             if(e.target.files){
                  const pickedImage = e.target.files[0]
                  setImage(pickedImage)
-                 console.log("PREVIEW", pickedImage )
             }
             else{
                   return
@@ -72,11 +66,12 @@ export default function Signup(){
                  }
            },[image])
 
+
       return(
                   <form className="signup-form"  encType="multipart/form-data" onSubmit={handleSubmit(handleSignup)}  >
                         <div className="form-group">
                               <label htmlFor="username">Username</label>
-                              <input type="text" placeholder="username ..." name="username" ref={register({required :true, minLength : 5, maxLength: 25}) }/>
+                              <input  type="text" placeholder="username ..." name="username" ref={register({required :true, minLength : 5, maxLength: 25}) }/>
                               {errors.username && <code>Username obligatoire<br/>Min : 5 caracteres && Max : 25 </code>}
                         </div>
 
@@ -102,7 +97,7 @@ export default function Signup(){
                               <input type="password" placeholder="password ... " name="password" ref={register({required :true})}/>
                               {errors.password && <code>Mot de Passe obligatoire</code>}
                         </div>
-                        <button type="submit">Inscription</button>
+                        <button type="submit" >Inscription</button>
                   </form>
       )
 }
