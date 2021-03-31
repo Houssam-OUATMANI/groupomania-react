@@ -85,6 +85,7 @@ export default function Home() {
                    }
              })
              const response = await data.json()
+            
              setData(response)
        }
       
@@ -103,14 +104,15 @@ useEffect(()=>{
                                           <div>
                                                 <img src={obj.user.imageUrl} alt=""/>
                                           </div>
-                                          <h2 className="username"> {obj.user.username}</h2>
+                                          <h3 className="username"> {obj.user.username}</h3>
                                     </div>
                                     <p className="created-at"> Posté le {obj.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                                     <div className="detail">
                                           <hr/>
+                                          <h3>{obj.title}</h3>
+                                          <hr/>
                                           <br/>
-                                          <h3>{obj.detail}</h3>
-                                          <br/>
+                                          <h4>{obj.detail}</h4>
                                           <hr/>
                                     </div>
             
@@ -138,6 +140,7 @@ useEffect(()=>{
                                                             
                                                             obj.comments.map((com)=>(
                                                                   <li key={com.id} className="comment-list">
+                                                                        {console.log(com)}
                                                                        <div>
                                                                               <div className="card-username__info" id="username-comment">
                                                                                     <div id="comment-left">

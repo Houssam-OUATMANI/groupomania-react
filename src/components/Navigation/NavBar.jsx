@@ -5,13 +5,14 @@ import { AuthContext } from '../../context/auth.context'
 import './NavBar.css'
 import Logo from '../../assets/icon-left-font-monochrome-black.svg'
 import BurgerNav from './BurgerNav'
+import ThemeMode from '../Theme/ThemeMode';
+
 
 export default function NavBar(){
 
     const auth = useContext(AuthContext)
    //const logout = ()=>  localStorage.removeItem('auth')
     const [ burgerNav, setBurgerNav ] = useState(false) 
-    console.log(burgerNav)
 
     function handleLougout(){
         const out = window.confirm('Se Déconnecter ?')
@@ -27,7 +28,7 @@ export default function NavBar(){
         }
 
         <div className='navbar__container'>
-            <i class="fas fa-bars fa-3x" onClick={()=>{setBurgerNav(!burgerNav)}}></i>
+            <i className="fas fa-bars fa-3x" onClick={()=>{setBurgerNav(!burgerNav)}}></i>
 
             <h1 className ="logo"><NavLink to="/"> <img src={Logo} width="250"alt="Logo"/></NavLink> </h1>
             <nav className='navigation'>
@@ -51,9 +52,9 @@ export default function NavBar(){
                         <li><NavLink to='/profile'>Mon Profile</NavLink></li>
                     )}
                     {auth.loggedIn && (
-                        //<button className='logout-btn' onClick={auth.Logout }>Deconnexion</button>
                         <i className="fas fa-sign-out-alt fa-lg" onClick={handleLougout}></i>
                     )}
+                    <ThemeMode/>
                 </ul>
             </nav>
         </div>

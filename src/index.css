@@ -4,6 +4,10 @@
 
 *{
   font-family: 'Inter';
+
+}
+input {
+  outline: none;
 }
 
 h1,h2,h3,h4,h5,h6, ::placeholder{
@@ -21,7 +25,7 @@ a {
   text-decoration: none;
   color: white ;
 }
-body,html{
+body{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -31,28 +35,31 @@ body,html{
   fill: rgb(24, 36, 68);
 }
 
+.light-background {
+  background-color: rgb(228, 216, 204);
+  color: #2c2a28 !important;
+  animation: bgBodyLight 20s infinite ease;
+  background-image: none;
+}
+
+.light {
+  color: #2c2a28 !important;
+}
+.light-input{
+  background-color: #27211b;
+  color: antiquewhite;
+}
+
+h4{
+  color: aliceblue;
+  font-family: 'Inter';
+}
 i{
   cursor: pointer;
 }
-
-/*
-background-color: #ff7700;
-background-attachment: fixed;
-
-background-color: #ffffff;
-background-attachment: fixed;
-background-size: cover;
-.
-163, 79, 85 
-background-color: #000000;
-background-attachment: fixed;
-background-size: cover;
-
-
-background-color: #000022;
-
-*/
-
+html{
+  animation: scalage 3s;
+}
 
 @keyframes bgBody {
   from {
@@ -65,3 +72,14 @@ background-color: #000022;
     background-color: #2c2a28;
   }
 }
+
+@keyframes scalage{
+  0%{
+      transform: scale(0) translateY(-200%);
+  } 
+  100%{
+      transform: scale(1) translateY(0);
+  }
+}
+
+

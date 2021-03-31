@@ -3,10 +3,12 @@ import  React ,{ useCallback, useState, useEffect } from 'react'
 import { BrowserRouter as Router , Switch , Route , Redirect  } from 'react-router-dom'
 
 import NavBar from './components/Navigation/NavBar';
+
 import Home from './screens/Home';
 import Signup from './screens/Signup';
 import Login from './screens/Login';
 import AddPost from './screens/AddPost';
+
 
 import { AuthContext } from './context/auth.context'
 import Profile from './screens/Profile';
@@ -17,6 +19,7 @@ function App() {
 const [token, setToken] = useState( false)
 const [userId, setUserId] = useState( false)
 
+ 
 
 
 const login = useCallback((userId, token)=>{

@@ -81,13 +81,13 @@
 
 @keyframes bgAnimation {
     from {
-       background-color:  #4d2435;
+       background-color:  #c43f76;
     }
     50%{
       background-color:  #85083c; 
     }
     to{
-        background-color:   #4d2435;
+        background-color:   #c43f76;
     }
 }
 @media screen and (max-width: 800px){

@@ -22,11 +22,9 @@ export default function Login(){
         
                     })
                  const response = await sendedData.json()
-                 console.log(response)
+                 
                  localStorage.setItem('auth' , JSON.stringify(response))
-                // sessionStorage.setItem('auth' , JSON.stringify(response))
 
-     
                  if (!sendedData.ok){
                        alert("Email ou mot de passe incorrecte")
                        throw new Error(response)
@@ -39,9 +37,7 @@ export default function Login(){
                  console.log(err)
            }
       }
-
-      const response = handleLogin
-      console.log(response)
+     
       return(
                   <form className="login-form" onSubmit={handleSubmit(handleLogin)}>
                         <div className="form-group">
@@ -53,7 +49,7 @@ export default function Login(){
                         </div>
                         <div className="form-group">
                               <label htmlFor="password">Password</label>
-                              <input type="password" placeholder="password ..." name="password" ref={register({required : true})} />
+                              <input type="password" placeholder="password ..." name="password" autoComplete="true" ref={register({required : true})} />
                               {errors.password && <code>Mot de Passe obligatoire</code>}
                         </div>
                         <button type="submit">Connexion</button>

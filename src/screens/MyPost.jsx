@@ -39,26 +39,7 @@ export default function MyPost(){
             getMyPosts()
       },[])
       
-      // console.log("Data",data)
-
-    
-
-      // async function updateDescription(data){
-      //       URL
-      //       API CALL
-
-      //       setShowUpdateDesc(false)
-      //       getMyPosts()
-      // }
-
-      // async function updatePic(data){
-      //       URL
-      //       API CALL
-
-      //       setShowUpdatePic(false)
-      //       getMyPosts()
-      // }
-      // DELETE POST
+     
 
     async function handleDeletePost(e){
           const conf = window.confirm("Cette publication sera definitivement suprimmée")
@@ -112,9 +93,10 @@ export default function MyPost(){
                               </div>
                               <p className="created-at"> Posté le {obj.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                               <div className="detail">
+                                    <h3>{obj.title}</h3>
                                     <hr/>
                                     <br/>
-                                    <h3>{obj.detail}</h3>
+                                    <h4>{obj.detail}</h4>
                                     <br/>
                                     <hr/>
                               </div>

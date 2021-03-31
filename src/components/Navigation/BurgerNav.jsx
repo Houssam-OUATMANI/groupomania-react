@@ -4,6 +4,7 @@ import './BurgerNav.css'
 import { NavLink } from 'react-router-dom'
 
 import { AuthContext } from '../../context/auth.context'
+import ThemeMode from '../Theme/ThemeMode';
 export default function BurgerNav(){
     const auth = useContext(AuthContext)
     
@@ -37,6 +38,7 @@ export default function BurgerNav(){
                     {auth.loggedIn && (
                         <i title="Se Déconnecter" className="fas fa-sign-out-alt fa-lg" onClick={handleLougout}></i>
                     )}
+                        <ThemeMode/>
                 </ul>
             </nav>
         </aside>

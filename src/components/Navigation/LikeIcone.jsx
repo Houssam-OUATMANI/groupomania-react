@@ -15,7 +15,6 @@ export default function LikeIcone(props){
             setIsClicked(false)
       }
 
-      console.log('like', like)
       return(
             <span onClick={isClicked === false ? handleAddLikes : handleCancelLikes}>
                   <i className={isClicked === false ?"fas fa-heart fa-lg fa-2x " : "fas fa-heart fa-2x red"}></i> {like}
