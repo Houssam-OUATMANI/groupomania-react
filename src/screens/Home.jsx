@@ -13,6 +13,10 @@ const ADD_COMMENT_URL =    "http://127.0.0.1:5000/api/comments/add-comment/"
 export default function Home() {
 
       const userCredentials = JSON.parse(localStorage.getItem('auth'))
+      const adminCredentials = JSON.parse(localStorage.getItem('admin'))
+
+      console.log(!!adminCredentials)
+
 
 
       const auth = useContext(AuthContext)
@@ -104,7 +108,7 @@ useEffect(()=>{
                                           <div>
                                                 <img src={obj.user.imageUrl} alt=""/>
                                           </div>
-                                          <h3 className="username"> {obj.user.username}</h3>
+                                          <h2 className="username"> {obj.user.username}</h2>
                                     </div>
                                     <p className="created-at"> Posté le {obj.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                                     <div className="detail">
@@ -126,7 +130,8 @@ useEffect(()=>{
             
                                     <div className="card-comment">
                                           <form onSubmit={handleComment} data-id={obj.id}>
-                                                <input className="card-input"  type="text" name="comment" placeholder="Laisser un commentaire 🙂" value={comments} onChange={e => setComments(e.target.value)}/>
+                                                <label class="hcom" htmlFor="hcom">laisser un commentaire</label>
+                                                <input className="card-input" id="hcom" type="text" name="comment" placeholder="Laisser un commentaire 🙂" value={comments} onChange={e => setComments(e.target.value)}/>
             
                                           </form>
 
@@ -158,6 +163,8 @@ useEffect(()=>{
                                                                                     }
                                                                                     
                                                                               </div>
+                                                                              
+                                                                        
                                                                               {(showUpdateForm && userCredentials.userId === com.user.id ) && 
                                                                                     <div className="update__container" key={com.id}>
                                                                                           <UpdateComments onSubmit={handleUpdateComment}
@@ -184,7 +191,10 @@ useEffect(()=>{
                   return(
                         <div className="post-null-container">
                               <h2 className="post-null">Aucune publication n'a été crée pour le moment</h2>
-                              <Link className="post-null-add" to="/add-post">Par ici pour crée une publication</Link>
+                              {!!adminCredentials === false && (
+                                    <Link className="post-null-add" to="/add-post">Par ici pour crée une publication</Link>
+                              )
+                              }
                         </div>
                         
                   )

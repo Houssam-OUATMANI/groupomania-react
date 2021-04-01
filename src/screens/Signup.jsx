@@ -71,13 +71,13 @@ export default function Signup(){
                   <form className="signup-form"  encType="multipart/form-data" onSubmit={handleSubmit(handleSignup)}  >
                         <div className="form-group">
                               <label htmlFor="username">Username</label>
-                              <input  type="text" placeholder="username ..." name="username" ref={register({required :true, minLength : 5, maxLength: 25}) }/>
+                              <input id="username" type="text" placeholder="username ..." name="username" ref={register({required :true, minLength : 5, maxLength: 25}) }/>
                               {errors.username && <code>Username obligatoire<br/>Min : 5 caracteres && Max : 25 </code>}
                         </div>
 
                         <div className="form-group">
                               <label htmlFor="user-pic">Selectioner une photo de profil</label>
-                              <input type="file" id="user-pic" name="image" accept=".jpeg, .png, .jpg, .gif" onChange={imageHandler} ref={register({required : true})}/>
+                              <input  type="file" id="user-pic" name="image" accept=".jpeg, .png, .jpg, .gif" onChange={imageHandler} ref={register({required : true})}/>
                               
                               { previewUrl &&
                                     <div className="image-preview">
@@ -88,13 +88,13 @@ export default function Signup(){
                         </div>
 
                         <div className="form-group">
-                              <label htmlFor="username">Email</label>
-                              <input type="email" placeholder="email..." name="email" ref={register({required :true}) }/>
+                              <label htmlFor="email">Email</label>
+                              <input id="email" type="email" placeholder="email..." name="email" ref={register({required :true}) }/>
                               {errors.email && <code>Email obligatoire</code>}
                         </div>
                         <div className="form-group">
-                              <label htmlFor="password">Mot de passe</label>
-                              <input type="password" placeholder="password ... " name="password" ref={register({required :true})}/>
+                              <label  htmlFor="password">Mot de passe</label>
+                              <input id="password" type="password" placeholder="password ... " name="password" ref={register({required :true})}/>
                               {errors.password && <code>Mot de Passe obligatoire</code>}
                         </div>
                         <button type="submit" >Inscription</button>

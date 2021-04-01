@@ -1,9 +1,10 @@
 .white {
-    color: gold;    
+    color: rgb(255, 102, 102);    
     cursor: pointer;
     padding-left: 0.5rem;
     margin-bottom: 0.5rem;
     transition: .3s;
+    background-color: none;
 }
 
 .red {
@@ -12,10 +13,7 @@
 .green  {
     color: chartreuse;
 }
-.white:hover{
-    color: orangered;
-    transform: scale(1.20);
-}
+
 .card {
     width: 45rem;
     overflow: hidden;
@@ -91,7 +89,7 @@
 }
 
 .card-comment {
-    height: 35px;
+    height: 70px;
 }
 .comment-list{
     transition: 2s;
@@ -191,6 +189,11 @@
     width: 30px;
     height: 30px;
 }
+
+.hcom {
+    display: block;
+    text-align: center;
+}
 .card-input {
     background-color: #4d2435 !important;
     padding: .3rem;
@@ -215,13 +218,13 @@
 
 @keyframes borderAnimation {
     from {
-       border: 15px solid #4d2435;
+       border: 15px solid #ca4f6e;
     }
     50%{
-      border: 15px solid #85083c; 
+      border: 15px solid #ca4f6e; 
     }
     to{
-        border:  15px solid #4d2435;
+        border:  15px solid #ca4f6e;
     }
 }
 @media screen and (max-width: 800px) {
@@ -235,4 +238,12 @@
     .card-image__post img {
         width: 93vw;
     }
+}
+
+#hcom{
+    display: block;
+    text-align: center;
+    width: 70%;
+    margin: auto;
+    height: 40px;
 }

@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState} from 'react'
 
 
 import './ThemeMode.css'
@@ -9,26 +9,8 @@ export default function ThemeMode(){
 
     if(toggleMode === true){
         document.body.classList.add('light-background')
-        document.querySelectorAll('label').forEach(el =>{
-            el.classList.add('light')
-        })
-        document.querySelectorAll('input').forEach(el =>{
-            el.classList.add('light-input')
-        })
-        document.querySelectorAll('h2').forEach(el =>{
-            el.classList.add('light__title')
-        })
     }else if(toggleMode !== true){
         document.body.classList.remove('light-background')
-        document.querySelectorAll('label').forEach(el =>{
-            el.classList.remove('light')
-        })
-        document.querySelectorAll('input').forEach(el =>{
-            el.classList.remove('light-input')
-        })
-        document.querySelectorAll('h2').forEach(el =>{
-            el.classList.remove('light__title')
-        })
     }
     
     return(

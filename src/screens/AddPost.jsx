@@ -69,11 +69,11 @@ export default function AddPost(){
             <form className="add-form"  onSubmit={handleSubmit(sendPost)}>
                  <div className="form-group">
                         <label htmlFor="title">Titre</label>
-                        <input className="add-input" type="text" placeholder="Title" name="title" ref={register} />
+                        <input className="add-input" type="text" placeholder="Title" name="title" id="title" ref={register} />
                  </div>
                  <div className="form-group">
-                        <label htmlFor="email">Description</label>
-                        <input className="add-input" type="text" placeholder="Description" name="detail" ref={register}/>
+                        <label htmlFor="desc">Description</label>
+                        <textarea id="desc" className="add-input" type="text" placeholder="Description" name="detail" ref={register}/>
                  </div>
                  <div className="form-group">
                         <label htmlFor="image">Image/Gif</label>

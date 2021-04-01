@@ -3,13 +3,14 @@
       text-align: center;
       margin-top: 1.5rem;
       font-size: 3rem;
-      color: antiquewhite;
+      color: #CA4F6E;
       text-decoration: underline;
 }
 
 .user-info {
       padding: 0 1rem;
 }
+
 
 .user-info p {
       color: antiquewhite;

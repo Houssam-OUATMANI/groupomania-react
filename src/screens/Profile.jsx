@@ -132,26 +132,26 @@ useEffect(()=>{
                                           <p>Profil Modifié le : {data.updatedAt.split('T').join(' à ').split('.000Z')}</p>
                               </div>
                               <div className="user-action">
-                                    <i title="Changer de nom d'utilisateur ?" className="fas fa-user white fa-3x"  onClick={()=>{
+                                    <i  className="fas fa-user white fa-3x"  onClick={()=>{
                                            setShowUpdateUsername(!showUpdateUsername)
                                            setShowUpdateEmail(false)
                                            setShowUpdatePhoto(false)
                                           }}
                                     ></i>
                                     
-                                    <i title="Changer d'email ?" className="fas fa-envelope-open white fa-3x"  onClick={()=>{
+                                    <i  className="fas fa-envelope-open white fa-3x"  onClick={()=>{
                                            setShowUpdateEmail(!showUpdateEmail)
                                            setShowUpdatePhoto(false)
                                            setShowUpdateUsername(false)
                                            }}>
                                     </i>
-                                    <i title="Changer de photo ?" className="fas fa-portrait white fa-3x" onClick={()=>{ 
+                                    <i className="fas fa-portrait white fa-3x" onClick={()=>{ 
                                           setShowUpdatePhoto(!showUpdatePhoto)
                                           setShowUpdateEmail(false)
                                           setShowUpdateUsername(false)
                                           }}>
                                     </i>
-                                    <i title="Supprimer votre compte ?" className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
+                                    <i  className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
                                     
                               </div>
                         </div>
