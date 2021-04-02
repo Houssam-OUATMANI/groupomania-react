@@ -1,7 +1,9 @@
  button {
        cursor: pointer;
  }
-
+#title-null {
+      color: #CA4F6E ;
+}
  .btn-delete {
        background-color: crimson;
        color: white;

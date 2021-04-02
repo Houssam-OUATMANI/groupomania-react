@@ -130,7 +130,7 @@ useEffect(()=>{
             
                                     <div className="card-comment">
                                           <form onSubmit={handleComment} data-id={obj.id}>
-                                                <label class="hcom" htmlFor="hcom">laisser un commentaire</label>
+                                                <label className="hcom" htmlFor="hcom">laisser un commentaire</label>
                                                 <input className="card-input" id="hcom" type="text" name="comment" placeholder="Laisser un commentaire 🙂" value={comments} onChange={e => setComments(e.target.value)}/>
             
                                           </form>

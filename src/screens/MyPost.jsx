@@ -90,7 +90,7 @@ export default function MyPost(){
             if(data.length < 1){
                   return(
                         <div className="post-null-container">
-                              <h2 className="post-null">{!!adminCredantails === true ? "Pas de publication" : "Tu n'as crée aucune publication 😩"} </h2>
+                              <h2 id="title-null" className="post-null">{!!adminCredantails === true ? "Pas de publication" : "Tu n'as crée aucune publication 😩"} </h2>
                               {
                                     !!adminCredantails === false &&(
                                           <Link className="post-null-add" to="/add-post">Par ici pour  en crée une 🙂 </Link>
@@ -102,7 +102,7 @@ export default function MyPost(){
 
             return(
                   data.map(obj => (
-                        <Fragment>
+                        <Fragment key={obj.id}>
 
                         <div className="card" key={obj.id} >
                               <div className="card-username__info">
